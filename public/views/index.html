@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Happy Finish AI server</title>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/dropzone.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+  </head>
+  <body>
+   <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="inner-cover">
+            <h1 class="cover-heading">CONTENT</h1>
+            <p class="lead">Upload photo</p>
+          </div>
+          <div class="upload-widgets">
+            <div class="upload-content-widget">
+            <form method="post" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
+              <div class="dx-message needsclick">
+                <p> Drag the content image here </p>
+              </div>
+            </form>
+            </div>
+            <div class="upload-style-widget">
+            <form method="post" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
+              <div class="dx-message needsclick">
+                <p> Drag the style image here </p>
+              </div>
+            </form>
+          </div>
+      </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/dropzone.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        function show_image(src, width, height, alt) {
+            var img = document.createElement("img");
+            img.src = src;
+            img.width = width;
+            img.height = height;
+            img.alt = alt;
+
+            // This next line will just add it to the <body> tag
+            document.body.appendChild(img);
+        }
+
+        var socket = io();
+        socket.on('classified',function(res){
+          var reg = /nike\s(\w+)/;
+          var nike_model = reg.exec(res);
+          document.getElementById("classification-result").innerHTML = 'Here the results<br>' + res;
+          var image_name = 'images/' + nike_model[0] + '.jpg';
+          show_image(image_name, 100,100,"result");
+        });
+
+        Dropzone.options.uploadWidget = {
+        paramName: 'file',
+        maxFilesize: 10, // MB
+        maxFiles: 1,
+        dictDefaultMessage: 'Drag an image here to upload, or click to select one',
+        // headers: {
+        //   'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
+        // },
+        acceptedFiles: 'image/*',
+        init: function() {
+          this.on('addedfile', function( file, resp ){
+            console.log( file );
+            console.log( resp );
+            if (this.files[1]!=null){
+              this.removeFile(this.files[0]);
+            }
+          });
+          this.on('thumbnail', function(file) {
+            if (file.rejectDimensions !== undefined || file.acceptDimensions !== undefined){
+              if ( file.width < 320 || file.height < 240 ) {
+                file.rejectDimensions();
+              } 
+              else {
+                file.acceptDimensions();
+              }
+          }
+          });
+        },
+        accept: function(file, done) {
+          file.acceptDimensions = done;
+          file.rejectDimensions = function() {
+            done('The image must be at least 320 x 240px')
+          };
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+.inner-cover{
+  width:100%;
+}
+.cover-container{
+  width:100%;
+}
+.cover-heading, .lead{
+  width:100%;
+  text-align: center;
+}
+.upload-widgets{
+  width:100%;
+  /* margin-left:25%;
+  margin-right: 25%; */
+}
+.upload-style-widget{
+  float:left;
+  width: 50%;
+  /* display: inline-block; */
+}
+.upload-content-widget{
+  float:right;
+  width: 50%;
+  /* display: inline-block; */
+}
+
+
