@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Happy Finish AI server</title>
+    <title>Theprintspace Style Transfer</title>
     <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="../css/dropzone.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
   </head>
@@ -31,7 +31,7 @@
             </form>
             </div>
             <div class="upload-style-widget">
-            <form method="post" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
+            <form method="post" type="file" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
               <div class="dx-message needsclick">
                 <p> Drag the style image here </p>
               </div>
@@ -61,13 +61,18 @@
         }
 
         var socket = io();
-        socket.on('classified',function(res){
-          var reg = /nike\s(\w+)/;
-          var nike_model = reg.exec(res);
-          document.getElementById("classification-result").innerHTML = 'Here the results<br>' + res;
-          var image_name = 'images/' + nike_model[0] + '.jpg';
-          show_image(image_name, 100,100,"result");
+        socket.on('classified', function(res){
+
         });
+
+        // var socket = io();
+        // socket.on('classified',function(res){
+        //   var reg = /nike\s(\w+)/;
+        //   var nike_model = reg.exec(res);
+        //   document.getElementById("classification-result").innerHTML = 'Here the results<br>' + res;
+        //   var image_name = 'images/' + nike_model[0] + '.jpg';
+        //   show_image(image_name, 100,100,"result");
+        // });
 
         Dropzone.options.uploadWidget = {
         paramName: 'file',

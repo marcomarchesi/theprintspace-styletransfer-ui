@@ -8,7 +8,7 @@ var exec = require('exec');
 var app     = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var upload = multer( { dest: 'uploads/' } );
+var upload = multer( { dest: 'upload/' } );
 
 var port = 3000
 
@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
     res.sendfile('./public/views/index.html');
 });
 
-app.post('/upload', upload.single( 'file' ), function( req, res, next ) {
+app.post('/uploads', upload.single( 'file' ), function( req, res, next ) {
 
 	if ( !req.file.mimetype.startsWith( 'image/' ) ) {
     return res.status( 422 ).json( {
@@ -37,6 +37,9 @@ app.post('/upload', upload.single( 'file' ), function( req, res, next ) {
       error : 'The image must be at least 320 x 240px'
     } );
   }
+
+
+  io.emit('classified', 'hello');
 
 	// exec('python predict.py uploads/' + req.file.filename + ' > uploads/' + req.file.filename + '.log',function(err,stdout,stderr){
  //      console.log(err,stdout,stderr);
