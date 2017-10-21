@@ -8,12 +8,11 @@ var exec = require('exec');
 var app     = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var upload = multer( { dest: 'upload/' } );
+var upload = multer( { dest: 'uploads/' } );
 
-var port = 3000
 
-http.listen(port, function(){
-  console.log('listening on port: ' + port);
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -22,7 +21,7 @@ app.get('/', function(req, res) {
     res.sendfile('./public/views/index.html');
 });
 
-app.post('/uploads', upload.single( 'file' ), function( req, res, next ) {
+app.post('/upload', upload.single( 'file' ), function( req, res, next ) {
 
 	if ( !req.file.mimetype.startsWith( 'image/' ) ) {
     return res.status( 422 ).json( {
@@ -38,9 +37,6 @@ app.post('/uploads', upload.single( 'file' ), function( req, res, next ) {
     } );
   }
 
-
-  io.emit('classified', 'hello');
-
 	// exec('python predict.py uploads/' + req.file.filename + ' > uploads/' + req.file.filename + '.log',function(err,stdout,stderr){
  //      console.log(err,stdout,stderr);
  //      var filename = './uploads/' + req.file.filename + '.log';
@@ -48,7 +44,7 @@ app.post('/uploads', upload.single( 'file' ), function( req, res, next ) {
  //      var data = fs.readFileSync(filename,'utf-8');
  //      var top = data.split('\n');
  //      // var topResults = top[0] + '<br>' + top[1];
- //      var topResults = top[0];
+ //      var topResults = top[0] + '--' + top[1];
  //      io.emit('classified',topResults);
 
  // 	})
@@ -56,9 +52,6 @@ app.post('/uploads', upload.single( 'file' ), function( req, res, next ) {
   return res.status( 200 ).send( req.file );
   
 });
-
-
-console.log('Amazing server running on port:' + port);
 
 
 
