@@ -1,0 +1,2 @@
+#!/bin/sh
+eval 'python ./style_transfer/deep_photostyle.py --serial ./style_transfer/output/ --content_image_path ./style_transfer/input/content.png --style_image_path ./style_transfer/input/style.png --content_seg_path ./style_transfer/input/content_seg.png --style_seg_path ./style_transfer/input/style_seg.png'

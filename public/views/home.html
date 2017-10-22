@@ -67,6 +67,9 @@
             socket.emit('uploading', {content:content_file, style:style_file});
           }
         });
+        socket.on('segmented', function(){
+          socket.emit('style_transferring');
+        });
 
         var content_file;
         var style_file;
@@ -76,7 +79,7 @@
         maxFilesize: 5, // MB
         maxFiles: 1,
         thumbnailMethod: 'contain',
-        resizeWidth: 700,
+        resizeWidth: 512,
         resizeMethod: 'contain',
         dictDefaultMessage: 'Tap here to start',
         // headers: {
