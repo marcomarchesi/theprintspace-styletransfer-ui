@@ -2,5 +2,5 @@
 /uploads
 .vscode
 /segmentation
-
+/style_transfer
 .DS_Store
