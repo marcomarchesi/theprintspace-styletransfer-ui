@@ -8,7 +8,6 @@
     <title>theprintspace style transfer</title>
     <!-- Bootstrap -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/dropzone.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
   </head>
@@ -20,83 +19,13 @@
           <div class="inner cover">
             <h1 class="lead"><b>theprintspace</b> style transfer</h1>
           </div>
-
-          <form id="upload-widget" method="post" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
-            <p> Drag the content image here </p>
-            <div class="fallback">
-              <input name="file" type="file" />  
-            </div>
+          <form class="form-signin" action="/login" method="POST">
+            <input class="form-control" type="text" name="username" placeholder="username" required="required" autofocus="autofocus"/>
+            <input class="form-control" type="password" name="password" placeholder="password" required="required"/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button><span class="clearfix"></span>
           </form>
-          <div class="divider"></div>
-          <form id="upload-widget" method="post" action="/upload" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
-            <p> Drag the style image here </p>
-            <div class="fallback">
-              <input name="file" type="file" />
-            </div>
-          </form>
-        </div>
-      </div>
-
-    </div>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/dropzone.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-
-        function show_image(src, width, height, alt) {
-            var img = document.createElement("img");
-            img.src = src;
-            img.width = width;
-            img.height = height;
-            img.alt = alt;
-
-            // This next line will just add it to the <body> tag
-            document.body.appendChild(img);
-        }
-
-        var socket = io();
-        socket.on('classified',function(res){
-          console.log("yeah, classified");
-        });
-
-        Dropzone.options.uploadWidget = {
-        paramName: 'file',
-        maxFilesize: 5, // MB
-        maxFiles: 1,
-        dictDefaultMessage: 'Tap here to start',
-        // headers: {
-        //   'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
-        // },
-        acceptedFiles: 'image/*',
-        init: function() {
-          this.on('addedfile', function( file, resp ){
-            // console.log( file );
-            // console.log( resp );
-            if (this.files[1]!=null){
-              this.removeFile(this.files[0]);
-            }
-          });
-          this.on('success', function( file, resp ){
-            // console.log( file );
-            // console.log( resp );
-          });
-          this.on('thumbnail', function(file) {
-            if ( file.width < 320 || file.height < 240 ) {
-              file.rejectDimensions();
-            } else {
-              file.acceptDimensions();
-            }
-          });
-        },
-        accept: function(file, done) {
-          file.acceptDimensions = done;
-          file.rejectDimensions = function() {
-            done('The image must be at least 320 x 240px')
-          };
-        }
-      };
-    </script>
+     </div>
+   </div>
+ </div>
   </body>
 </html>
