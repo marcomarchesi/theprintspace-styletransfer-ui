@@ -90,10 +90,13 @@
           });
           this.on('success', function( file, resp ){
             // console.log( file );
-            // console.log( resp );
-            if(this.element.action == "http://localhost:3000/upload_style")
+            style_expr = /upload_style/;
+            content_expr = /upload_content/;
+            // console.log(this.element.action.search(style_expr));
+            // console.log(this.element.action.search(content_expr));
+            if(this.element.action.search(style_expr) > -1)
               style_file = resp.filename;
-            if(this.element.action == "http://localhost:3000/upload_content")
+            if(this.element.action.search(content_expr) > -1)
               content_file = resp.filename;
 
             console.log(content_file);

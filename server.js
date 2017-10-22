@@ -119,11 +119,15 @@ io.on('connection', function(socket){
     console.log('yes, it is uploading the images');
 
     exec('python copy_images.py --content "./uploads/' + response.content + '" --style "./uploads/' + response.style + '"', function(err, stdout, stderr){
-      // console.log(err,stdout,stderr);
+      console.log(err,stdout,stderr);
       console.log("copied images");
+      exec('python ./segmentation/test.py --dataroot ./segmentation/datasets/pspt --name pspt_pix2pix --model pix2pix --which_model_netG unet_256 --which_direction AtoB --dataset_mode aligned --norm batch', function(err, stdout, stderr){
+          console.log(err,stdout,stderr);
+          console.log('executed segmentation');
+        });
     });
-
-    exec('python ./segmentation/test.py --dataroot .segmentation/datasets/pspt --name pspt_pix2pix --model pix2pix --which_model_netG unet_256 --which_direction AtoB --dataset_mode aligned --norm batch');
+    
+    
 
 
       // exec('python predict.py uploads/' + req.file.filename + ' > uploads/' + req.file.filename + '.log',function(err,stdout,stderr){
