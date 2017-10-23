@@ -16,27 +16,26 @@
    <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
-
           <div class="inner cover">
             <h1 class="lead"><b>theprintspace</b> style transfer</h1>
           </div>
-
-          <form id="upload-widget" method="post" action="/upload_content" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
-            <!-- <p> Drag the content image here </p> -->
-            <div class="fallback">
-              <input name="file" type="file" />  
-            </div>
-          </form>
-          <div class="divider"></div>
-          <form id="upload-widget" method="post" action="/upload_style" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
-            <!-- <p> Drag the style image here </p> -->
-            <div class="fallback">
-              <input name="file" type="file" />
-            </div>
-          </form>
-          <form method="post" action="/start">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Start</button><span class="clearfix"></span>
-          </form>
+          <div class="content-style-result-container">
+            <form id="upload-widget" method="post" action="/upload_content" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
+              <div class="fallback">
+                <input name="file" type="file" />  
+              </div>
+            </form>
+            <form id="upload-widget" method="post" action="/upload_style" class="dropzone needsclick dz-clickable selected  dz-started dz-max-files-reached">
+              <div class="fallback">
+                <input name="file" type="file" />
+              </div>
+            </form>
+            <div class="result"></div>
+            <form method="post" action="/start">
+              <button class="start-btn btn-lg btn-primary btn-block" type="submit">Start</button>
+              <span class="clearfix"></span>
+            </form>
+          </div>
         </div>
       </div>
 

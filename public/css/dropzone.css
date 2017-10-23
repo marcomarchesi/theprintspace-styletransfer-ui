@@ -174,8 +174,8 @@
   box-sizing: border-box; }
 
 .dropzone {
-  width: 25%;
-  min-height: 100px;
+  width: 10em;
+  max-height: 10em;
   border: 2px dashed #555555;
   margin:auto; 
   }

@@ -53,6 +53,9 @@ body {
   margin-left: auto;
 }
 
+.content-style-result-container{
+  width:100%;}
+
 /* Padding for spacing */
 .inner {
   padding: 30px;
@@ -65,19 +68,20 @@ body {
   font-size: 2em;
 }
 
+.result,
 .dropzone {
-  /*margin-left: 2em;*/
-  width:25%;
-  min-height: 150px;
+  float: left;
+  margin-right: 3em;
+  width:5em;
+  min-height: 5em;
   border: 2px dashed #ffffff;
   background: #000;
   font-size: 2em;
-  display: inline-block;
+  margin-bottom: 2em;
 }
 
-.divider{
-  width:5%;
-  display: inline-block;
+.result{
+  float: right;
 }
 
 .form-signin {
@@ -85,9 +89,17 @@ body {
   margin:auto;
 }
 
+.start-btn,
 .btn {
   border: 2px solid #555;
   background-color: #555;
+  width:100%;
+  margin:auto;
+}
+
+.start-btn {
+  width:50%;
+  float:left;
 }
 
 /*
